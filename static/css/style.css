@@ -1,0 +1,36 @@
+.container {
+    max-width: 1920px;
+}
+
+h1, h4.grey {
+    text-align: left;
+}
+
+.navbar-brand {
+    text-align: right;
+}
+
+h4.grey {
+    color: grey;
+}
+
+.works-title {
+    text-align: center;
+}
+
+.jobs-table {
+    max-width: 1080px;
+    margin: auto;
+}
+
+.table-head-grey {
+    background-color: #bab5b5;
+}
+
+.table-body-blue {
+    background-color: #bfe1f5;
+}
+
+.table-body-pink {
+    background-color: #f5bff3;
+}

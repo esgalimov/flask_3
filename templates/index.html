@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block navbar_cont %}
+    <h1>Миссия Колонизация Марса</h1>
+{% endblock %}
+
+{% block content %}
+    {% set lab = "Action #" %}
+    <h4 class="grey">И на Марсе будут яблони цвести!</h4>
+    <h3 class="works-title">Worsk log</h3>
+    {% for item in jobs %}
+    <div class="jobs-table">
+        <h4>{{lab}} {{loop.index}}</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <td scope="col" class="table-head-grey">Title of activity</td>
+              <td scope="col" class="table-head-grey">Team leader</td>
+              <td scope="col" class="table-head-grey">Duration</td>
+              <td scope="col" class="table-head-grey">List of collaborators</td>
+              <td scope="col" class="table-head-grey">Is finished</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" class="table-body-blue">{{item.job}}</td>
+              <td class="table-body-blue">{{item.user.surname}} {{item.user.name}}</td>
+              <td class="table-body-blue">{{item.work_size}} hours</td>
+              <td class="table-body-blue">{{item.collaborators}}</td>
+              <td class="table-body-pink">{% if item.is_finished == 0 %} Is not finished {% else %} Finished {% endif %}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    {% endfor %}
+{% endblock %}
