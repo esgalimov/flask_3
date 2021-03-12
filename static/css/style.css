@@ -6,8 +6,8 @@ h1, h4.grey {
     text-align: left;
 }
 
-.navbar-brand {
-    text-align: right;
+.mars-one {
+    text-align: center;
 }
 
 h4.grey {
@@ -34,3 +34,9 @@ h4.grey {
 .table-body-pink {
     background-color: #f5bff3;
 }
+
+.register-form, .login-form {
+    max-width: 1080px;
+    margin: auto;
+}
+

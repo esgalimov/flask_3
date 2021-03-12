@@ -38,11 +38,11 @@ def reqister():
         user = User(
             surname=form.surname.data,
             name=form.name.data,
-            age=form.name.data,
-            position=form.name.data,
-            speciality=form.name.data,
+            age=form.age.data,
+            position=form.position.data,
+            speciality=form.speciality.data,
             email=form.email.data,
-            address=form.email.data,
+            address=form.address.data,
 
         )
         user.set_password(form.password.data)
