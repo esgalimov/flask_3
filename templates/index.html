@@ -8,6 +8,11 @@
     {% set lab = "Action #" %}
     <h4 class="grey">И на Марсе будут яблони цвести!</h4>
     <h3 class="works-title">Worsk log</h3>
+
+    <div class="all-jobs-table">
+        {% if current_user.is_authenticated %}
+        <a href="add_job" class="btn btn-secondary">Добавить новость</a>
+        {% endif %}
     {% for item in jobs %}
     <div class="jobs-table">
         <h4>{{lab}} {{loop.index}}</h4>
@@ -27,10 +32,15 @@
               <td class="table-body-blue">{{item.user.surname}} {{item.user.name}}</td>
               <td class="table-body-blue">{{item.work_size}} hours</td>
               <td class="table-body-blue">{{item.collaborators}}</td>
-              <td class="table-body-pink">{% if item.is_finished == 0 %} Is not finished {% else %} Finished {% endif %}</td>
+              {% if item.is_finished == 0 %}
+              <td class="table-body-pink">Is not finished</td>
+              {% else %}
+                <td class="table-body-green">Finished</td>
+              {% endif %}
             </tr>
           </tbody>
         </table>
     </div>
     {% endfor %}
+    </div>
 {% endblock %}

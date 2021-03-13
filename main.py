@@ -6,7 +6,8 @@ from data.jobs import Jobs
 import datetime
 from forms.user import RegisterForm
 from forms.login_form import LoginForm
-from flask_login import LoginManager, login_user, logout_user, login_required
+from forms.job import JobForm
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 
 app = Flask(__name__)
@@ -78,6 +79,26 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route('/add_job',  methods=['GET', 'POST'])
+@login_required
+def add_news():
+    form = JobForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        jobs = Jobs()
+        jobs.job = form.title.data
+        jobs.team_leader = form.team_leader.data
+        jobs.work_size = form.work_size.data
+        jobs.collaborators = form.collaborators.data
+        jobs.is_finished = form.is_finished.data
+        current_user.jobs.append(jobs)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('job.html', title='Добавление работы',
+                           form=form)
 
 
 def main():

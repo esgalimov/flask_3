@@ -18,7 +18,7 @@ h4.grey {
     text-align: center;
 }
 
-.jobs-table {
+.jobs-table, .all-jobs-table {
     max-width: 1080px;
     margin: auto;
 }
@@ -35,7 +35,11 @@ h4.grey {
     background-color: #f5bff3;
 }
 
-.register-form, .login-form {
+.table-body-green {
+    background-color: #87faa8;
+}
+
+.register-form, .login-form, .new-job-form {
     max-width: 1080px;
     margin: auto;
 }
