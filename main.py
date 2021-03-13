@@ -89,11 +89,11 @@ def add_news():
         db_sess = db_session.create_session()
         jobs = Jobs()
         jobs.job = form.title.data
-        jobs.team_leader = form.team_leader.data
         jobs.work_size = form.work_size.data
         jobs.collaborators = form.collaborators.data
         jobs.is_finished = form.is_finished.data
-        current_user.jobs.append(jobs)
+        user = db_sess.query(User).filter(User.id == form.team_leader.data).first()
+        user.jobs.append(jobs)
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
