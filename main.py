@@ -48,13 +48,8 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/log')
+        return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
-
-
-@app.route('/log')
-def log():
-    return 'success'
 
 
 @login_manager.user_loader
