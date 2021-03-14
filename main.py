@@ -1,7 +1,7 @@
 from flask import Flask
 from data import db_session
 from data.users import User
-from flask import render_template, make_response, request, redirect
+from flask import render_template, make_response, request, redirect, abort
 from data.jobs import Jobs
 import datetime
 from forms.user import RegisterForm
@@ -97,8 +97,49 @@ def add_news():
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('job.html', title='Добавление работы',
+    return render_template('job.html', title='Add job', type_of_action='Add job',
                            form=form)
+
+
+@app.route('/edit_job/<int:id>',  methods=['GET', 'POST'])
+@login_required
+def edit_news(id):
+    form = JobForm()
+    if request.method == "GET":
+        db_sess = db_session.create_session()
+        if current_user.id == 1:
+            jod = db_sess.query(Jobs).filter(Jobs.id == id).first()
+        else:
+            jod = db_sess.query(Jobs).filter(Jobs.id == id).filter(Jobs.user == current_user).first()
+        if jod:
+            form.title.data = jod.job
+            form.work_size.data = jod.work_size
+            form.collaborators.data = jod.collaborators
+            form.is_finished.data = jod.is_finished
+            form.team_leader.data = jod.team_leader
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        if current_user.id == 1:
+            jod = db_sess.query(Jobs).filter(Jobs.id == id).first()
+        else:
+            jod = db_sess.query(Jobs).filter(Jobs.id == id).filter(Jobs.user == current_user).first()
+        if jod:
+            jod.job = form.title.data
+            jod.work_size = form.work_size.data
+            jod.collaborators = form.collaborators.data
+            jod.is_finished = form.is_finished.data
+            jod.team_leader = form.team_leader.data
+            db_sess.commit()
+            return redirect('/')
+        else:
+            abort(404)
+    return render_template('Job.html',
+                           title='Edit job',
+                           type_of_action='Edit job',
+                           form=form
+                           )
 
 
 def main():

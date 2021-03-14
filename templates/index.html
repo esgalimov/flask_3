@@ -11,11 +11,21 @@
 
     <div class="all-jobs-table">
         {% if current_user.is_authenticated %}
-        <a href="add_job" class="btn btn-secondary">Добавить новость</a>
+        <a href="add_job" class="btn btn-secondary">Add job</a>
         {% endif %}
     {% for item in jobs %}
     <div class="jobs-table">
         <h4>{{lab}} {{loop.index}}</h4>
+        {% if current_user.is_authenticated and current_user == item.user or current_user.id == 1 %}
+            <div>
+                <a href="/edit_job/{{ item.id }}" class="btn btn-warning">
+                    Edit job
+                </a>
+                <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+                    Delete job
+                </a>
+            </div>
+        {% endif %}
         <table class="table">
           <thead>
             <tr>

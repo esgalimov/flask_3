@@ -2,7 +2,7 @@
 
 {% block content %}
     <form action="" method="post" class="new-job-form">
-        <h1>Adding a job</h1>
+        <h1>{{type_of_action}}</h1>
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
