@@ -160,7 +160,6 @@ def news_delete(id):
 
 def main():
     db_session.global_init("db/blogs.db")
-
     app.run(port=8080, host='127.0.0.1')
 
 
