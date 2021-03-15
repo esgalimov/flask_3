@@ -1,7 +1,7 @@
 from flask import Flask
 from data import db_session, jobs_api
 from data.users import User
-from flask import render_template, make_response, request, redirect, abort
+from flask import render_template, make_response, request, redirect, abort, jsonify
 from data.jobs import Jobs
 import datetime
 from forms.user import RegisterForm
@@ -16,6 +16,11 @@ login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 # для кириллицы в json
 app.config['JSON_AS_ASCII'] = False
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @app.route('/')
