@@ -1,5 +1,5 @@
 from flask import Flask
-from data import db_session
+from data import db_session, jobs_api
 from data.users import User
 from flask import render_template, make_response, request, redirect, abort
 from data.jobs import Jobs
@@ -14,6 +14,8 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+# для кириллицы в json
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/')
@@ -160,6 +162,7 @@ def news_delete(id):
 
 def main():
     db_session.global_init("db/blogs.db")
+    app.register_blueprint(jobs_api.blueprint)
     app.run(port=8080, host='127.0.0.1')
 
 
