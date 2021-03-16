@@ -10,7 +10,8 @@ print(get('http://127.0.0.1:8080/api/jobs/r').json())
 print(get('http://127.0.0.1:8080/api/jobs/233').json())
 
 print(post('http://127.0.0.1:8080/api/jobs',
-           json={'job': 'Test',
+           json={'id': 17,
+                 'job': 'Test',
                  'team_leader': 1,
                  'work_size': 1,
                  'collaborators': '2, 3',
