@@ -51,7 +51,6 @@ def create_news():
         return jsonify({'error': 'Bad request'})
     db_sess = db_session.create_session()
     j = db_sess.query(Jobs).get(request.json['id'])
-    print(j)
     if j:
         return jsonify({'error': 'Id already exists'})
     jobs = Jobs(
