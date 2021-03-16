@@ -75,3 +75,27 @@ def delete_news(job_id):
     db_sess.delete(jobs)
     db_sess.commit()
     return jsonify({'success': 'OK'})
+
+
+@blueprint.route('/api/jobs/<int:job_id>', methods=['PUT'])
+def put_news(job_id):
+    db_sess = db_session.create_session()
+    jobs = db_sess.query(Jobs).get(job_id)
+    if not jobs:
+        return jsonify({'error': 'Not found'})
+    if not request.json:
+        return jsonify({'error': 'Empty request'})
+    elif not all(key in request.json for key in
+                 ['id', 'job', 'team_leader', 'work_size', 'collaborators', 'is_finished']):
+        return jsonify({'error': 'Bad request'})
+    j = db_sess.query(Jobs).get(request.json['id'])
+    if j and j != jobs:
+        return jsonify({'error': 'Id already exists'})
+    jobs.id = request.json['id']
+    jobs.job = request.json['job']
+    jobs.team_leader = request.json['team_leader']
+    jobs.work_size = request.json['work_size']
+    jobs.collaborators = request.json['collaborators']
+    jobs.is_finished = request.json['is_finished']
+    db_sess.commit()
+    return jsonify({'success': 'OK'})
