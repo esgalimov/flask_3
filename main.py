@@ -9,7 +9,7 @@ from forms.login_form import LoginForm
 from forms.job import JobForm
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_restful import Api
-from data import users_resource
+from data import users_resource, jobs_resource
 
 
 app = Flask(__name__)
@@ -173,6 +173,8 @@ def main():
     app.register_blueprint(jobs_api.blueprint)
     api.add_resource(users_resource.UsersListResource, '/api/v2/users')
     api.add_resource(users_resource.UsersResource, '/api/v2/users/<int:user_id>')
+    api.add_resource(jobs_resource.JobsListResource, '/api/v2/jobs')
+    api.add_resource(jobs_resource.JobsResource, '/api/v2/jobs/<int:job_id>')
     app.run(port=8080, host='127.0.0.1')
 
 
